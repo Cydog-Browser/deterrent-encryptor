@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <script src="cy-page-decryptor.js"></script>
+    </head>
+    <body>
+        <iframe id="decryption-test"></iframe>
+        <script>
+            //Took an example encrypted output from test.php
+            const example = `{"ciphertext":"Ls1+BueMJUAyZllj04ttWOctRMFXy3aF8DeZG0pH/esvt0nGpb9ZQ6d/hDj9jTTUxG7NNHS/0lJdLu6KCqojsAi/zYq4BUwQG3Crk4iokAdGj6A0Gc/QB2pG+PdHHNe5R1DLPgQ+dPx+WmekjrvPiwCbY6hV6dymLrOKPmEviZoGmUG/R9z/lfVOxYqcJvcUDXcIOedrwEJ68yg+cy4tBVIgUt+s2QXDbsKkx4FW/LwbtS/YVXupA12jB3aR+BsJ1XwfIc4LSJwIiYX+cD1acbSVREXO/Lt94qR9jPTOoGJ+UhmrugY4xOvqhlCmWfWdPUTMkerZ0Yz7uvol548s4e6jZAXRo8XpdVDeL9if9UAAfv5cBY/sUCVIF6TYUJf+/RQ/Js5o7O3sfij5s077RudHqIfc+Jo1qlk=","iv":"3AZJ2hyC/oIpv+4V","salt":"nXWirp9VGxJJ53BVY2UGwQ==","tag":"3ltlcL5U5T+xIxf3bxBWMw=="}`;
+            var decryptedHtml = "";
+            getHTML();
+            async function getHTML(){
+                decryptedHtml = await decryptHtml(example, "test");
+                const decryptedTest = document.getElementById("decryption-test");
+                const iframeDoc = decryptedTest.contentWindow.document;
+                iframeDoc.open(); // Open the document for writing
+                iframeDoc.write(decryptedHtml); // Write the HTML string
+                iframeDoc.close(); // Close the document to render the content
+            }
+        </script>
+    </body>
+</html>
