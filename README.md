@@ -29,10 +29,17 @@ if($webpage){
     - Dynamically run PHP script/page and serves only the HTML/Output produced, which secures server against PHP related attacks.
   - other (under development)
     - Serves any output produced, which allows for encrypted APIs of any JSON output.
+2. **All deterrence encryptor pages should be coded with ' instead of " enclosures:**
+  - Right: <p id='example' class='example example2'></p>
+  - Wrong: <p id="example" class="example example2"></p>
 
 ## Performance Impact
-- Unknown
-    - Testing is ongoing
+| CPU | Memory | Result 1 | Result 2 |
+|-----|--------|----------|----------|
+| **[Intel Core i5-1240P](https://www.cpubenchmark.net/cpu.php?id=4759&cpu=Intel+Core+i5-1240P)** | 512MBs | Average server encryption time per 1MB: 0.54 ms | Deterrence encryptor time for 24.58 KB file: 0.08 ms |
+
+## Live Performance Result
+![Browser result for live server render prior to extension decryption](https://raw.githubusercontent.com/Cydog-Browser/deterrent-encryptor/refs/heads/main/result.png "Browser results")
 
 ## Security Considerations
 1. **Backend Security**: Place all pages in website backend and serve only display pages:
