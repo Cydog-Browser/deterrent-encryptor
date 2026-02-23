@@ -54,6 +54,29 @@ function encryptWebPage(string $path, string $password, string $type): string {
                 'tag' => base64_encode($tag),
             ];
             return json_encode($array);
+        } else if ($type === "pdf"){
+            $output = file_get_contents($path);
+            $pdfB64Output = base64_encode($output);
+            $encrypted = openssl_encrypt(
+                $pdfB64Output,
+                'aes-256-gcm',
+                $key,
+                OPENSSL_RAW_DATA,
+                $iv,
+                $tag,
+                '', // Additional authenticated data, can be empty
+                16 // Tag length
+            );
+            if ($encrypted === false) {
+                return "Error. PHP OpenSSL library failed."; // Handle encryption error
+            }
+            $array = [
+                'ciphertext' => base64_encode($encrypted),
+                'iv' => base64_encode($iv),
+                'salt' => base64_encode($salt),
+                'tag' => base64_encode($tag),
+            ];
+            return json_encode($array);
         } else if ($type === "other"){
             // Other file types might include JSON file types
             $output = file_get_contents($path);
